@@ -24,8 +24,20 @@ public class KeyManager {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
         generator.initialize(2048);
         KeyPair pair = generator.generateKeyPair();
-        // For the sake of this tool, we might want to be able to generate our own pairs too
-        // but the requirement says "Recipient Public Key".
+        this.recipientPublicKey = pair.getPublic();
+        this.privateKey = pair.getPrivate();
+    }
+
+    private PrivateKey privateKey;
+
+    public String getPrivateKeyString() {
+        if (privateKey == null) return "";
+        return formatKey(Base64.getEncoder().encodeToString(privateKey.getEncoded()), "PRIVATE KEY");
+    }
+
+    public String getRecipientPublicKeyString() {
+        if (recipientPublicKey == null) return "";
+        return formatKey(Base64.getEncoder().encodeToString(recipientPublicKey.getEncoded()), "PUBLIC KEY");
     }
 
     public SecretKey getSecretKey() {
