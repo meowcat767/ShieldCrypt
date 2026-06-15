@@ -220,8 +220,9 @@ public class Interface {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(contentFrame);
             if (result == JFileChooser.APPROVE_OPTION) {
-                imagePathLabel.setText(fileChooser.getSelectedFile().getAbsolutePath());
-                // TODO: Image Preview Logic
+                File selectedFile = fileChooser.getSelectedFile();
+                imagePathLabel.setText(selectedFile.getAbsolutePath());
+                updateImagePreview(selectedFile);
             }
         });
         selectFileButton.addActionListener(e -> {
@@ -328,6 +329,40 @@ public class Interface {
                 );
             }
         });
+    }
+
+    private void updateImagePreview(File file) {
+        if (file == null || !file.exists()) {
+            imagePreviewLabel.setIcon(null);
+            imagePreviewLabel.setText("No preview available");
+            return;
+        }
+
+        try {
+            ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
+            Image image = imageIcon.getImage();
+
+            // Resize image to fit label while maintaining aspect ratio
+            int labelWidth = imagePreviewLabel.getWidth();
+            int labelHeight = imagePreviewLabel.getHeight();
+
+            if (labelWidth <= 0) labelWidth = 200; // Default if not yet rendered
+            if (labelHeight <= 0) labelHeight = 200;
+
+            double widthRatio = (double) labelWidth / image.getWidth(null);
+            double heightRatio = (double) labelHeight / image.getHeight(null);
+            double ratio = Math.min(widthRatio, heightRatio);
+
+            int newWidth = (int) (image.getWidth(null) * ratio);
+            int newHeight = (int) (image.getHeight(null) * ratio);
+
+            Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            imagePreviewLabel.setIcon(new ImageIcon(scaledImage));
+            imagePreviewLabel.setText("");
+        } catch (Exception ex) {
+            imagePreviewLabel.setIcon(null);
+            imagePreviewLabel.setText("Error loading preview");
+        }
     }
 
     public JPanel getContentPane() {
