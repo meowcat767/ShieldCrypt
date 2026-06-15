@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
-import java.util.Base64;
 import java.util.Properties;
 
 import site.meowcat.manager.KeyManager;
@@ -39,6 +38,7 @@ public class Interface {
     private JButton decryptFileButton;
     private JButton generateKeysButton;
     private JButton generateRSAKeyPairButton;
+    private JButton aboutButton;
 
     private final KeyManager keyManager = new KeyManager();
 
@@ -328,6 +328,11 @@ public class Interface {
                         JOptionPane.ERROR_MESSAGE
                 );
             }
+        });
+
+        aboutButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(contentFrame,
+                    "ShieldCrypt \n Written by meowcat767 \n Written in Java \n (c) meowcat767 2026");
         });
     }
 

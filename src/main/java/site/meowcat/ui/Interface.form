@@ -43,6 +43,12 @@
                   <text value="Exit"/>
                 </properties>
               </component>
+              <component id="906c3" class="javax.swing.JButton" binding="aboutButton">
+                <constraints/>
+                <properties>
+                  <text value="About"/>
+                </properties>
+              </component>
             </children>
           </toolbar>
           <tabbedpane id="f2237" binding="tabbedPane1" default-binding="true">
