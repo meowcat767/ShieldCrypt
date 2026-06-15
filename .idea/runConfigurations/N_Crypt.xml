@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="N-Crypt" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="site.meowcat.Main" />
+    <module name="N-Crypt" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
